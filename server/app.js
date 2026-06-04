@@ -24,7 +24,10 @@ app.get("/", (req, res) => {
 
 //import routes
 import healthCheck from "./controller/health.controller";
+import metricsRoutes from "./routes/metrics.routes.js";
 
 //routes
+
+app.use("api/v1/metrics", metricsRoutes);
 app.use("/api/v1/healthCheck", healthCheck);
 export default app;
