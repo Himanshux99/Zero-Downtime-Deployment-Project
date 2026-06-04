@@ -19,15 +19,25 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.send("Welcome to basecampy");
+  res.send("Welcome to Something");
 });
 
+//import middleware
+import { logger } from "./middleware/logger.middleware.js";
+import { metricsMiddleware } from "./middleware/metrics.middleware.js";
+import { failureMiddleware } from "./middleware/failure.middleware.js";
+
+//middleware
+app.use(logger);
+app.use(metricsMiddleware);
+app.use(failureMiddleware);
+
 //import routes
-import healthCheck from "./controller/health.controller";
-import metricsRoutes from "./routes/metrics.routes.js";
+import healthCheck from "./routes/healthcheck.route.js";
+import metricsRoutes from "./routes/metrics.route.js";
 
 //routes
-
-app.use("api/v1/metrics", metricsRoutes);
+app.use("/api/v1/metrics", metricsRoutes);
 app.use("/api/v1/healthCheck", healthCheck);
+
 export default app;

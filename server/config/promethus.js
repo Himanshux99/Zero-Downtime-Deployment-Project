@@ -6,4 +6,4 @@ client.collectDefaultMetrics({
   register,
 });
 
-export { register };
+export { client, register };
