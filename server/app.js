@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
-
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 const baseUrl = process.env.BASE_URL || "/api/v1";
 // basic configurations

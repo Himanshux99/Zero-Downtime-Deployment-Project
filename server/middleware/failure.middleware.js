@@ -1,20 +1,17 @@
-export const failureMiddleware = (
-  req,
-  res,
-  next
-) => {
-  const excludedRoutes = [
-    "/health",
-    "/metrics",
-  ];
-
-  if (excludedRoutes.includes(req.path)) {
+export const failureMiddleware = (req, res, next) => {
+  if (
+    req.originalUrl.startsWith("/api/v1/healthCheck") ||
+    req.originalUrl.startsWith("/api/v1/metrics")
+  ) {
     return next();
   }
 
+  const failureRate =
+    Number(process.env.FAILURE_RATE) || 0.1;
+
   if (
     process.env.VERSION === "v2" &&
-    Math.random() < 0.1
+    Math.random() < failureRate
   ) {
     return res.status(500).json({
       success: false,
