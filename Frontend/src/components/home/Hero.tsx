@@ -40,9 +40,7 @@ export default function HeroSection({
     const checkBackend = async () => {
       try {
 
-        const backend = await axios.get(
-          `${import.meta.env.PUBLIC_BACKEND_URL}/healthCheck`
-        );
+        const backend = await axios.get("/api/v1/healthCheck");
         console.log(backend.data);
       } catch (err) {
         console.error(err);

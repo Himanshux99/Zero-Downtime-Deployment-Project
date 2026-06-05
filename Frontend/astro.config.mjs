@@ -8,46 +8,57 @@
  */
 
 // @ts-check
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-import react from '@astrojs/react';
-import sanity from '@sanity/astro';
-import vercel from '@astrojs/vercel';
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@astrojs/react";
+import sanity from "@sanity/astro";
+import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server', // Server mode for Sanity Studio, pages prerender by default
+  output: "server", // Server mode for Sanity Studio, pages prerender by default
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      proxy: {
+        "/api": {
+          target: "http://localhost:8080",
+          changeOrigin: true,
+          headers: {
+            Host: "app.local",
+          },
+        },
+      },
+    },
     optimizeDeps: {
-      exclude: ['@sanity/astro'],
+      exclude: ["@sanity/astro"],
       include: [
-        'sanity',
-        'sanity/structure',
-        '@sanity/vision',
-        '@sanity/color-input',
-        '@sanity/dashboard',
-        'sanity-plugin-media',
-        'sanity-plugin-dashboard-widget-document-list',
-        'styled-components',
-        'react',
-        'react-dom',
-        'react/jsx-runtime'
-      ]
-    }
+        "sanity",
+        "sanity/structure",
+        "@sanity/vision",
+        "@sanity/color-input",
+        "@sanity/dashboard",
+        "sanity-plugin-media",
+        "sanity-plugin-dashboard-widget-document-list",
+        "styled-components",
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+      ],
+    },
   },
   prefetch: {
     prefetchAll: true, // Prefetch all links on hover
-    defaultStrategy: 'hover', // Start loading when user hovers
+    defaultStrategy: "hover", // Start loading when user hovers
   },
   integrations: [
     react(),
     sanity({
-      projectId: 'o3z0h95j',
-      dataset: 'production',
+      projectId: "o3z0h95j",
+      dataset: "production",
       useCdn: true, // Use CDN for faster reads
-      studioBasePath: '/admin', // Sanity Studio at /admin
+      studioBasePath: "/admin", // Sanity Studio at /admin
     }),
   ],
 });
