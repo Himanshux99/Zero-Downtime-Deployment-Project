@@ -13,8 +13,7 @@ export const metricsMiddleware = (req, res, next) => {
     const duration =
       diff[0] + diff[1] / 1_000_000_000;
 
-    const route =
-      req.baseUrl + req.path || req.originalUrl;
+   const route = req.route?.path || req.path;
 
     const labels = {
       method: req.method,
@@ -22,6 +21,8 @@ export const metricsMiddleware = (req, res, next) => {
       status: res.statusCode,
       version: process.env.VERSION || "v1",
     };
+    // console.log("METRIC:", labels);
+
 
     requestCounter.inc(labels);
 

@@ -35,11 +35,13 @@ app.use(failureMiddleware);
 
 //import routes
 import healthCheck from "./routes/healthcheck.route.js";
+import healthUnCheck from "./routes/healthuncheck.route.js";
 import metricsRoutes from "./routes/metrics.route.js";
 import infoRoutes from "./routes/info.route.js";
 
 app.use(`${baseUrl}/info`, infoRoutes);
 app.use(`${baseUrl}/metrics`, metricsRoutes);
 app.use(`${baseUrl}/healthCheck`, healthCheck);
+app.use(`${baseUrl}/healthUnCheck`, healthUnCheck);
 
 export default app;

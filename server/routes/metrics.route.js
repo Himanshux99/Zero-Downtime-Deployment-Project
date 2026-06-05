@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { getMetrics } from "../controller/metrics.controller.js";
+import { register } from "../service/metrics.service.js";
 
 const router = Router();
 
-router.route("/").get(getMetrics);
+router.get("/", async (req, res) => {
+  res.set("Content-Type", register.contentType);
+
+  res.end(await register.metrics());
+});
 
 export default router;
