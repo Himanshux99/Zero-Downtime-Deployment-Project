@@ -3,7 +3,6 @@ kind: Deployment
 
 metadata:
   name: astro-blue
-  namespace: production
 
 spec:
   replicas: 2
@@ -61,7 +60,6 @@ kind: Service
 
 metadata:
   name: astro-service
-  namespace: production
 
 spec:
   type: ClusterIP
