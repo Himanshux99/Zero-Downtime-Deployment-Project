@@ -2,33 +2,44 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: backend-deployment
+  name: backend-v2-deployment
 
 spec:
-  replicas: 2
+  replicas: 1
 
   selector:
     matchLabels:
-      app: backend
+      app: backend-v2
 
   template:
     metadata:
       labels:
-        app: backend
+        app: backend-v2
 
     spec:
       containers:
-        - name: backend
-          image: sujaltiwari27/astro-backend:v1
+        - name: backend-v2
+          image: sujaltiwari27/astro-backend:v2
           imagePullPolicy: Always
 
           ports:
             - containerPort: 3000
 
+          env:
+            - name: PORT
+              value: "3000"
+
+            - name: VERSION
+              value: "v2"
+
+            - name: FAILURE_RATE
+              value: "0.1"
+
           readinessProbe:
             httpGet:
               path: /api/v1/healthCheck
               port: 3000
+
             initialDelaySeconds: 5
             periodSeconds: 10
 
@@ -36,5 +47,6 @@ spec:
             httpGet:
               path: /api/v1/healthCheck
               port: 3000
+
             initialDelaySeconds: 15
             periodSeconds: 20

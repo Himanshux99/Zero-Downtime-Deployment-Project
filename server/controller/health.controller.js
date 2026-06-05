@@ -1,6 +1,6 @@
 export const healthCheck = (req, res) => {
-  res.status(200).json({
+  return res.status(200).json({
     status: "ok",
-    version: "v1"
+    version: process.env.VERSION || "v1",
   });
 };
