@@ -1,0 +1,70 @@
+---
+const version = import.meta.env.PUBLIC_APP_VERSION;
+const deployment = import.meta.env.PUBLIC_DEPLOYMENT;
+const image = import.meta.env.PUBLIC_IMAGE;
+const pod = import.meta.env.PUBLIC_POD_NAME;
+const namespace = import.meta.env.PUBLIC_NAMESPACE;
+---
+<html lang="en">
+  <body class="min-h-screen bg-neutral-100 flex items-center justify-center p-6 font-sans text-neutral-900">
+    
+    <div class="w-full max-w-2xl border border-neutral-300 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.06)]">
+      
+      <!-- Header -->
+      <div class="border-b border-neutral-300 px-8 py-6">
+        <p class="text-xs uppercase tracking-[0.25em] text-neutral-500 mb-2">
+          System Status
+        </p>
+
+        <h1 class="text-4xl font-semibold tracking-tight">
+          Deployment Info
+        </h1>
+      </div>
+
+      <!-- Content -->
+      <div class="grid grid-cols-1 sm:grid-cols-2">
+        
+        <div class="border-b sm:border-r border-neutral-200 p-6">
+          <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">
+            Version
+          </p>
+          <p class="text-xl font-medium">{version}</p>
+        </div>
+
+        <div class="border-b border-neutral-200 p-6">
+          <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">
+            Deployment
+          </p>
+          <p class="text-xl font-medium">{deployment}</p>
+        </div>
+
+        <div class="border-b sm:border-r border-neutral-200 p-6">
+          <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">
+            Image
+          </p>
+          <p class="text-sm font-mono break-all text-neutral-700">
+            {image}
+          </p>
+        </div>
+
+        <div class="border-b border-neutral-200 p-6">
+          <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">
+            Pod Name
+          </p>
+          <p class="text-sm font-mono text-neutral-700">
+            {pod}
+          </p>
+        </div>
+
+        <div class="p-6 sm:col-span-2">
+          <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">
+            Namespace
+          </p>
+          <p class="text-lg font-medium">{namespace}</p>
+        </div>
+
+      </div>
+    </div>
+
+  </body>
+</html>

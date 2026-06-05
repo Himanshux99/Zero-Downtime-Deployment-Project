@@ -68,6 +68,7 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "typescript": "^6.0.3"
   }
 }
