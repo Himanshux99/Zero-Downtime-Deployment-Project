@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 
 const app = express();
-
+const baseUrl = process.env.BASE_URL || "/api/v1";
 // basic configurations
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
@@ -35,9 +35,10 @@ app.use(failureMiddleware);
 //import routes
 import healthCheck from "./routes/healthcheck.route.js";
 import metricsRoutes from "./routes/metrics.route.js";
+import infoRoutes from "./routes/info.route.js";
 
-//routes
-app.use("/api/v1/metrics", metricsRoutes);
-app.use("/api/v1/healthCheck", healthCheck);
+app.use(`${baseUrl}/info`, infoRoutes);
+app.use(`${baseUrl}/metrics`, metricsRoutes);
+app.use(`${baseUrl}/healthCheck`, healthCheck);
 
 export default app;

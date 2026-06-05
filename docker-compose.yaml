@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+
+  frontend:
+    build:
+      context: ./frontend
+
+    container_name: astro-frontend
+
+    ports:
+      - "8080:80"
+
+    depends_on:
+      - backend
+
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./server
+
+    container_name: astro-backend
+
+    ports:
+      - "3001:3000"
+
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+
+    restart: unless-stopped
