@@ -7,12 +7,12 @@
  * ╹ src/components/layout/
  */
 
-import { useState } from 'react';
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import NavLogo from './NavLogo';
-import DesktopNav from './DesktopNav';
-import MobileNav from './MobileNav';
+import { useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import NavLogo from "./NavLogo";
+import DesktopNav from "./DesktopNav";
+import MobileNav from "./MobileNav";
 
 interface NavLink {
   name: string;
@@ -28,13 +28,14 @@ interface Props {
 
 // Default navigation links as fallback
 const defaultNavLinks: NavLink[] = [
-  { name: 'Home', href: '/' },
-  { name: 'Events', href: '/events' },
-  { name: 'Our Work', href: '/our-work' },
-  { name: 'Team', href: '/team' },
-  { name: 'Gallery', href: '/gallery' },
-  { name: 'Camp', href: '/camp' },
-  { name: 'Achievements', href: '/achievements' },
+ { name: "About",        href: "/#about",        isExternal: false },
+  { name: "Events",       href: "/events/",        isExternal: false },
+  { name: "Our Work",     href: "/our-work/",      isExternal: false },
+  { name: "Team",         href: "/team/",          isExternal: false },
+  { name: "Gallery",      href: "/gallery/",       isExternal: false },
+  { name: "Camp",         href: "/camp/",          isExternal: false },
+  { name: "Achievements", href: "/achievements/",  isExternal: false },
+  // { name: "deployment", href: "/deployment/",  isExternal: false },
 ];
 
 export default function Navbar({ nssLogo, vitLogo, navLinks }: Props) {
@@ -43,7 +44,7 @@ export default function Navbar({ nssLogo, vitLogo, navLinks }: Props) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Use provided navLinks or fallback to defaults
-  const links = navLinks?.length ? navLinks : defaultNavLinks;
+  const links = defaultNavLinks;
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50);
@@ -54,13 +55,13 @@ export default function Navbar({ nssLogo, vitLogo, navLinks }: Props) {
       <motion.nav
         className={`fixed top-0 w-full bg-white transition-all duration-300 ${
           isScrolled
-            ? 'border-b border-swiss-gray-200 shadow-sm'
-            : 'border-b border-swiss-gray-100'
+            ? "border-b border-swiss-gray-200 shadow-sm"
+            : "border-b border-swiss-gray-100"
         }`}
         style={{ zIndex: 9999 }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 sm:px-8 lg:px-10 py-3">
           <NavLogo nssLogo={nssLogo} vitLogo={vitLogo} />
@@ -72,8 +73,13 @@ export default function Navbar({ nssLogo, vitLogo, navLinks }: Props) {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isMobileMenuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
           </button>
+          <p className="text-sm text-text/70 m-0 p-0">version 1.0.0</p>
         </div>
       </motion.nav>
 
