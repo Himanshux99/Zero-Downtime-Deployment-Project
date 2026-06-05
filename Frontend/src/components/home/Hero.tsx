@@ -8,7 +8,8 @@
  */
 
 import { motion } from 'framer-motion';
-
+import { useEffect } from 'react';
+import axios from 'axios';
 interface FeaturedAchievement {
   text: string;
   description?: string;
@@ -22,6 +23,8 @@ interface Props {
   heroSubtext?: string;
   featuredAchievement?: FeaturedAchievement | null;
 }
+    
+
 
 export default function HeroSection({
   heroImage = '/hero-nss.png',
@@ -30,11 +33,30 @@ export default function HeroSection({
   heroSubtext = 'Fostering community service and leadership at Vidyalankar since 1999.',
   featuredAchievement = null
 }: Props) {
-  // Split tagline for animation (handles "NOT ME, BUT YOU" format)
+
+  useEffect(() => {
+    console.log('Hero mounted');
+
+    const checkBackend = async () => {
+      try {
+
+        const backend = await axios.get(
+          `${import.meta.env.PUBLIC_BACKEND_URL}/healthCheck`
+        );
+        console.log(backend.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    checkBackend();
+  }, []);
+
   const taglineParts = heroTagline.includes(',')
     ? heroTagline.split(',').map(s => s.trim())
     : [heroTagline];
-    return (
+
+  return (
         <section className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-10 pt-6 pb-8">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-3 min-h-[340px] md:h-[520px]">
 
